@@ -7,7 +7,7 @@ import (
 	"go.uber.org/fx"
 )
 
-var healthCheckModule = fx.Module("api-healthcheck-module",
+var healthCheckModule = fx.Module("api-healthcheck",
 	fx.Provide(provideHealthCheckController),
 	fx.Invoke(healthcheckRoutes),
 )

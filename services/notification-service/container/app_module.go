@@ -1,30 +1,19 @@
 package container
 
 import (
-	"log"
-
 	"github.com/stepanleas/notification-service/bootstrap"
 	"github.com/stepanleas/notification-service/container/api"
-	"github.com/stepanleas/notification-service/pkg/logger"
 	"go.uber.org/fx"
 )
 
-var ApplicationModule = fx.Module("app-module",
+var ApplicationModule = fx.Module("app",
 	fx.Provide(provideApplication),
-	fx.Provide(provideLogger),
+	loggerModule,
+	elasticSearchModule,
+	rabbitMqModule,
 	api.ApiModule,
-	ElasticSearchModule,
 )
 
 func provideApplication() bootstrap.Application {
 	return bootstrap.App()
-}
-
-func provideLogger() *logger.LogrusLogger {
-	logrusLogger, err := logger.NewLogrusLogger()
-	if err != nil {
-		log.Fatal("could not create logger!")
-	}
-
-	return logrusLogger
 }

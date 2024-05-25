@@ -11,7 +11,7 @@ import (
 	"go.uber.org/fx"
 )
 
-var routerModule = fx.Module("api-router",
+var serverModule = fx.Module("api-server",
 	fx.Provide(newHttpServer),
 	fx.Invoke(httpServerHandler),
 	fx.Provide(newRouter),

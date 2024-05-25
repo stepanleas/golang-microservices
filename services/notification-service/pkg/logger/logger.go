@@ -21,3 +21,11 @@ func (l *LogrusLogger) AddHook(hook logrus.Hook) {
 func (l *LogrusLogger) Info(args ...interface{}) {
 	l.logger.Info(args...)
 }
+
+func (l *LogrusLogger) Error(args ...interface{}) {
+	l.logger.Error(args...)
+}
+
+func (l *LogrusLogger) Err(msg string, err error) {
+	l.logger.Error(msg, logrus.WithField("error", err.Error()))
+}

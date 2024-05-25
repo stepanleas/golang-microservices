@@ -6,6 +6,7 @@ require (
 	emperror.dev/errors v0.8.1
 	github.com/elastic/go-elasticsearch/v8 v8.13.1
 	github.com/gin-gonic/gin v1.10.0
+	github.com/rabbitmq/amqp091-go v1.10.0
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/viper v1.18.2
 	go.uber.org/fx v1.21.1

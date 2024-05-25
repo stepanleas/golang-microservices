@@ -53,3 +53,7 @@ func (c *ElasticClient) checkConnection() error {
 
 	return nil
 }
+
+func (c *ElasticClient) Client() *elasticsearch.Client {
+	return c.client
+}

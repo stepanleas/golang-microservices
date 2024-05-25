@@ -5,19 +5,16 @@ import (
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/sirupsen/logrus"
 	"github.com/stepanleas/notification-service/bootstrap"
 	"github.com/stepanleas/notification-service/pkg/elastic"
-	"github.com/stepanleas/notification-service/pkg/logger"
 	"go.uber.org/fx"
 )
 
-var ElasticSearchModule = fx.Module("elasticsearch",
-	fx.Provide(provideClient),
-	fx.Invoke(addElasticHook),
+var elasticSearchModule = fx.Module("elasticsearch",
+	fx.Provide(provideElasticClient),
 )
 
-func provideClient(app bootstrap.Application) *elastic.ElasticClient {
+func provideElasticClient(app bootstrap.Application) *elastic.ElasticClient {
 	cfg := elasticsearch.Config{
 		Addresses: []string{app.Env.ElasticSearchUrl},
 	}
@@ -33,20 +30,4 @@ func provideClient(app bootstrap.Application) *elastic.ElasticClient {
 	}
 
 	return elastiClient
-}
-
-func addElasticHook(client *elastic.ElasticClient, app bootstrap.Application, logger *logger.LogrusLogger) {
-	cfg := elastic.ElasticLoggerConfig{
-		Client: client,
-		Host:   app.Env.ElasticSearchUrl,
-		Level:  logrus.DebugLevel,
-		Index:  app.Env.ElasticSearchIndex,
-	}
-
-	hook, err := elastic.LoggerHook(cfg)
-	if err != nil {
-		log.Fatal("could not create logger!", err)
-	}
-
-	logger.AddHook(hook)
 }

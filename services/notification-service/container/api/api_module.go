@@ -4,7 +4,7 @@ import (
 	"go.uber.org/fx"
 )
 
-var ApiModule = fx.Module("api-module",
-	routerModule,
+var ApiModule = fx.Module("api",
+	serverModule,
 	healthCheckModule,
 )
